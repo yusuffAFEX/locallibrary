@@ -1,0 +1,17 @@
+{% extends "catalog/base_generic.html" %}
+
+{% block content %}
+  <h1>Author : {{ author.first_name }}, {{ author.last_name }}</h1>
+
+  <p>{{ author.date_of_birth }}</p> <!-- author detail link not yet defined -->
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Books</h4>
+
+    {% for autho in author.book_set.all %}
+      <hr>
+      <p><a href="{{ autho.get_absolute_url }}">{{ autho.title }}</a></p>
+      <p>{{ autho.summary }}</p>
+    {% endfor %}
+  </div>
+{% endblock %}
