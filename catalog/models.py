@@ -1,9 +1,11 @@
 import uuid
 from django.db import models
+from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
+from django.db.models.signals import pre_save
 
 
 # Create your models here.
@@ -22,6 +24,7 @@ class Book(models.Model):
                             help_text='13 Character, <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
     genre = models.ManyToManyField(Genre, help_text='Select a text genre for this book')
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
+    # slug = models.SlugField(null=True)
 
     class Meta:
         ordering = ['title', 'author']
@@ -95,3 +98,8 @@ class Language(models.Model):
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
         return self.name
+
+
+# @receiver(pre_save, sender=Book)
+# def slugify_title(sender, instance, **kwargs):
+#     instance.slug = slugify(instance.title)

@@ -21,13 +21,7 @@ class BookListView(generic.ListView):
 
 class BookDetailView(generic.DetailView):
     model = Book
-    slug_field = 'title'
-    book_title = Book.objects.get(id=1).title
 
-    def get_context_data(self, **kwargs):
-        context = super(BookDetailView, self).get_context_data(**kwargs)
-        context["slug"] = slugify(self.book_title)
-        return context
 
 
 class AuthorListView(generic.ListView):
